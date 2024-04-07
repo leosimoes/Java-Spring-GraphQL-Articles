@@ -1,0 +1,15 @@
+type Query {
+    articlesById(id: ID): Article
+}
+
+type Article {
+    id: ID
+    name: String
+    author: Author
+}
+
+type Author {
+    id: ID
+    fullname: String
+    username: String
+}

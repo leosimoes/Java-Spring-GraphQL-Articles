@@ -10,6 +10,29 @@ Os passos da implementação do projeto:
 - Spring Framework (6.2.3);
 - Dependências: Web, GraphQL, DevTools e Lombok.
 
+2. Em `src/main/resources/graphql`, criar `schema.graphqls` ou `schema.gqls`:
+- A consulta é buscar artigo pelo seu id;
+- Cada artigo possui id, name, author;
+- Cada author pode possuir id, fullname, username.
+
+```graphql
+type Query {
+    articlesById(id: ID): Article
+}
+
+type Article {
+    id: ID
+    name: String
+    author: Author
+}
+
+type Author {
+    id: ID
+    fullname: String
+    username: String
+}
+```
+
 
 ## Referências
 Baeldung - Getting Started with GraphQL and Spring Boot:
