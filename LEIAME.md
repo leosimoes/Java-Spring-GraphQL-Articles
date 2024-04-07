@@ -106,6 +106,18 @@ public class ArticleController {
 }
 ```
 
+6. Configurar `application.properties` para:
+- definir rota da api graphql como `/api/graphql`;
+- ativar graphiql;
+- definir rota da api graphiql como `api/tests/graphiql`.
+
+```properties
+spring.application.name=Java-Spring-GraphQL-Articles
+spring.graphql.path=/api/graphql
+spring.graphql.graphiql.enabled=true
+spring.graphql.graphiql.path=api/tests/graphiql
+```
+
 
 ## Referências
 Baeldung - Getting Started with GraphQL and Spring Boot:
