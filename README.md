@@ -33,6 +33,29 @@ type Author {
 }
 ```
 
+3. Create `record Author`:
+- with fields `id`, `fullname`, `username` of type String;
+- with `static authorList` field;
+- with `static Author getById(String id)` method.
+
+```java
+public record Author(String id, String fullname, String username) {
+
+    public static List<Author> authorList = Arrays.asList(
+            new Author("author-1", "Arthur Ignatius Conan Doyle", "aicd"),
+            new Author("author-2", "Researcher Holmes", "rshlm"),
+            new Author("author-3", "Dr. Watson", "drwt")
+    );
+
+    public static Author getById(String id){
+        return authorList
+                .stream()
+                .filter(author -> Objects.equals(author.id(), id))
+                .findFirst().orElse(null);
+    }
+}
+```
+
 
 ## References
 Baeldung - Getting Started with GraphQL and Spring Boot:
