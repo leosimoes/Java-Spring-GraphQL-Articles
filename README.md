@@ -39,6 +39,7 @@ type Author {
 - with `static Author getById(String id)` method.
 
 ```java
+package com.project.javaspringgraphqlarticles.data;
 public record Author(String id, String fullname, String username) {
 
     public static List<Author> authorList = Arrays.asList(
@@ -52,6 +53,31 @@ public record Author(String id, String fullname, String username) {
                 .stream()
                 .filter(author -> Objects.equals(author.id(), id))
                 .findFirst().orElse(null);
+    }
+}
+```
+
+4. Create `record Article`:
+- with fields `id`, `name`, `authorId` of type String;
+- with `static articleList` field;
+- with `static Article getById(String id)` method.
+
+```java
+package com.project.javaspringgraphqlarticles.data;
+public record Article(String id, String name, String authorId) {
+
+    public static List<Article> articleList = Arrays.asList(
+            new Article("article-1", "A study in scarlet red", "author-1"),
+            new Article("article-2", "A Sherlock Adventure", "author-2"),
+            new Article("article-3", " The Memoirs of Holmes", "author-3")
+    );
+
+    public static Article getById(String id){
+        return articleList
+                .stream()
+                .filter(article -> Objects.equals(article.id(), id))
+                .findFirst()
+                .orElse(null);
     }
 }
 ```
