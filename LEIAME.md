@@ -10,6 +10,8 @@ Os passos da implementação do projeto:
 - Spring Framework (6.2.3);
 - Dependências: Web, GraphQL, DevTools e Lombok.
 
+![Img-01-IntelliJ](images/Img-01-IntelliJ.png)
+
 2. Em `src/main/resources/graphql`, criar `schema.graphqls` ou `schema.gqls`:
 - A consulta é buscar artigo pelo seu id;
 - Cada artigo possui id, name, author;
@@ -17,7 +19,7 @@ Os passos da implementação do projeto:
 
 ```graphql
 type Query {
-    articlesById(id: ID): Article
+  articleById(id: ID): Article
 }
 
 type Article {
@@ -42,17 +44,17 @@ type Author {
 package com.project.javaspringgraphqlarticles.data;
 public record Author(String id, String fullname, String username) {
 
-    public static List<Author> authorList = Arrays.asList(
+    private static List<Author> authorList = Arrays.asList(
             new Author("author-1", "Arthur Ignatius Conan Doyle", "aicd"),
             new Author("author-2", "Researcher Holmes", "rshlm"),
             new Author("author-3", "Dr. Watson", "drwt")
     );
-
+  
     public static Author getById(String id){
-        return authorList
-                .stream()
-                .filter(author -> Objects.equals(author.id(), id))
-                .findFirst().orElse(null);
+      return Author.authorList
+              .stream()
+              .filter(author -> author.id().equals(id))
+              .findFirst().orElse(null);
     }
 }
 ```
@@ -66,18 +68,18 @@ public record Author(String id, String fullname, String username) {
 package com.project.javaspringgraphqlarticles.data;
 public record Article(String id, String name, String authorId) {
 
-    public static List<Article> articleList = Arrays.asList(
+    private static List<Article> articleList = Arrays.asList(
             new Article("article-1", "A study in scarlet red", "author-1"),
             new Article("article-2", "A Sherlock Adventure", "author-2"),
             new Article("article-3", " The Memoirs of Holmes", "author-3")
     );
-
+  
     public static Article getById(String id){
-        return articleList
-                .stream()
-                .filter(article -> Objects.equals(article.id(), id))
-                .findFirst()
-                .orElse(null);
+      return Article.articleList
+              .stream()
+              .filter(article -> article.id().equals(id))
+              .findFirst()
+              .orElse(null);
     }
 }
 ```
@@ -117,6 +119,19 @@ spring.graphql.path=/api/graphql
 spring.graphql.graphiql.enabled=true
 spring.graphql.graphiql.path=api/tests/graphiql
 ```
+
+7. Para testar, acesse `http://localhost:8080/api/tests/graphiql?path=/api/graphql` com o navegador (ou use o POSTMAN):
+
+![Img-02-GraphiQL-article-1](images/Img-02-GraphiQL-article-1.png)
+
+![Img-03-GraphiQL-article-2](images/Img-03-GraphiQL-article-2.png)
+
+![Img-04-GraphiQL-article-3](images/Img-04-GraphiQL-article-3.png)
+
+![Img-05-GraphiQL-article-0](images/Img-05-GraphiQL-article-0.png)
+
+Obs.:
+- Os nomes em Query `schema.graphqls` devem ser os mesmos dos métodos das Controllers anotados com `@QueryMapping`.
 
 
 ## Referências
