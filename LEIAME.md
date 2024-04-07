@@ -82,6 +82,30 @@ public record Article(String id, String name, String authorId) {
 }
 ```
 
+5. Criar classe `ArticleController`:
+- no pacote `controllers`;
+- anotada com `@Controller`;
+- com os métodos:
+    * `@QueryMapping public Article articleById(@Argument String id)`;
+    * `@SchemaMapping public Author author(Article article)`.
+
+```java
+package com.project.javaspringgraphqlarticles.controllers;
+@Controller
+public class ArticleController {
+
+    @QueryMapping
+    public Article articleById(@Argument String id){
+        return Article.getById(id);
+    }
+
+    @SchemaMapping
+    public Author author(Article article){
+        return Author.getById(article.authorId());
+    }
+}
+```
+
 
 ## Referências
 Baeldung - Getting Started with GraphQL and Spring Boot:
